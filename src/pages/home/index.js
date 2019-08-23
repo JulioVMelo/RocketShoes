@@ -1,6 +1,7 @@
 import React from 'react';
 import { MdAddShoppingCart } from 'react-icons/md';
 import { ProductList } from './styles';
+// import api from '../../services/api';
 
 export default function Home() {
   return(
