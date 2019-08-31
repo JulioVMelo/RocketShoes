@@ -33,6 +33,7 @@ const GlobalStyle = createGlobalStyle`
   body {
     background: #191919 url(${background}) no-repeat center top;
     background-size: cover;
+    font-family: sans-serif;
   }
 
 `;

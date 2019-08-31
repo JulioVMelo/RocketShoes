@@ -1,100 +1,45 @@
-import React from 'react';
+import React, {Component} from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Creators as ProductActions } from '../../store/ducks/products';
 import { MdAddShoppingCart } from 'react-icons/md';
 import { ProductList } from './styles';
-// import api from '../../services/api';
 
-export default function Home() {
-  return(
-    <ProductList>
-      <li>
-        <img src="https://imgcentauro-a.akamaihd.net/900x900/93457683/tenis-nike-air-zoom-pegasus-36-masculino-img.jpg" alt="shoes" />
-        <strong>Tênis muito legal</strong>
-        <span>R$ 129,90</span>
+class Home extends Component{
 
-        <button type="button">
-          <div>
-            <MdAddShoppingCart size={16} color="#fff"/> 3
-          </div>
-          <span>
-            Adicionar ao carrinho
-          </span>
-        </button>
-      </li>
+  componentDidMount() {
+    this.props.asyncListProducts();
+  };
 
-      <li>
-        <img src="https://imgcentauro-a.akamaihd.net/900x900/93457683/tenis-nike-air-zoom-pegasus-36-masculino-img.jpg" alt="shoes" />
-        <strong>Tênis muito legal</strong>
-        <span>R$ 129,90</span>
-
-        <button type="button">
-          <div>
-            <MdAddShoppingCart size={16} color="#fff"/> 3
-          </div>
-          <span>
-            Adicionar ao carrinho
-          </span>
-        </button>
-      </li>
-
-      <li>
-        <img src="https://imgcentauro-a.akamaihd.net/900x900/93457683/tenis-nike-air-zoom-pegasus-36-masculino-img.jpg" alt="shoes" />
-        <strong>Tênis muito legal</strong>
-        <span>R$ 129,90</span>
-
-        <button type="button">
-          <div>
-            <MdAddShoppingCart size={16} color="#fff"/> 3
-          </div>
-          <span>
-            Adicionar ao carrinho
-          </span>
-        </button>
-      </li>
-
-      <li>
-        <img src="https://imgcentauro-a.akamaihd.net/900x900/93457683/tenis-nike-air-zoom-pegasus-36-masculino-img.jpg" alt="shoes" />
-        <strong>Tênis muito legal</strong>
-        <span>R$ 129,90</span>
-
-        <button type="button">
-          <div>
-            <MdAddShoppingCart size={16} color="#fff"/> 3
-          </div>
-          <span>
-            Adicionar ao carrinho
-          </span>
-        </button>
-      </li>
-
-      <li>
-        <img src="https://imgcentauro-a.akamaihd.net/900x900/93457683/tenis-nike-air-zoom-pegasus-36-masculino-img.jpg" alt="shoes" />
-        <strong>Tênis muito legal</strong>
-        <span>R$ 129,90</span>
-
-        <button type="button">
-          <div>
-            <MdAddShoppingCart size={16} color="#fff"/> 3
-          </div>
-          <span>
-            Adicionar ao carrinho
-          </span>
-        </button>
-      </li>
-
-      <li>
-        <img src="https://imgcentauro-a.akamaihd.net/900x900/93457683/tenis-nike-air-zoom-pegasus-36-masculino-img.jpg" alt="shoes" />
-        <strong>Tênis muito legal</strong>
-        <span>R$ 129,90</span>
-
-        <button type="button">
-          <div>
-            <MdAddShoppingCart size={16} color="#fff"/> 3
-          </div>
-          <span>
-            Adicionar ao carrinho
-          </span>
-        </button>
-      </li>
-    </ProductList>
-  );
+  render(){
+    return(
+      <ProductList>
+        {
+          this.props.state.products.map(item => 
+            <li key={item.id}>
+              <img src={item.image} alt={item.name}/>
+              <strong> {item.name} </strong>
+              <span>R$ {item.price}</span>
+              <button type="button">
+                <div>
+                  <MdAddShoppingCart size={16} color="#fff"/> {item.stock}
+                </div>
+                <span>
+                  Adicionar ao carrinho
+                </span>
+              </button>
+            </li>
+          )
+        }
+      </ProductList>
+    );
+  }
 };
+
+const mapStateToProps = state => ({
+  state,
+});
+
+const mapDispatchToProps = dispatch => bindActionCreators(ProductActions, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

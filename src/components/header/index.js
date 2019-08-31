@@ -3,8 +3,10 @@ import { Container, Cart } from './styles';
 import Logo from '../../assets/images/Logo.svg';
 import { Link } from 'react-router-dom';
 import { MdShoppingBasket } from 'react-icons/md';
+import { connect } from 'react-redux';
 
-export default function header() {
+  const header = ({state}) => {
+    console.log('cart page', state);
   return (
     <Container>
       <Link to="/">
@@ -16,7 +18,11 @@ export default function header() {
           <strong>
             Meu carrinho
           </strong>
-          <span>3 items</span>
+          <span> 
+            {
+              state.length === 0 ? <span>Nenhum item adicionado</span> : <span>{state.length}</span>
+            } 
+          </span>
         </div>
         <MdShoppingBasket size={36} color="#fff"/>
       </Cart>
@@ -24,3 +30,9 @@ export default function header() {
     </Container>
   );
 }
+
+const mapStateToProps = state => ({
+  state: state.cart
+});
+
+export default connect(mapStateToProps)(header);

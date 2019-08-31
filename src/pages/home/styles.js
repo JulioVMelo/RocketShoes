@@ -28,6 +28,7 @@ export const ProductList = styled.ul`
     }
 
     > strong {
+      flex-grow: 1;
       font-size: 16px;
       line-height: 20px;
       color: #333;
@@ -50,7 +51,8 @@ export const ProductList = styled.ul`
       display: flex;
       align-items: center;
       transition: background-color .2s;
-
+      cursor: pointer;
+      
       &:hover {
         background-color: ${darken(0.03, "#7159c1")}
       }
