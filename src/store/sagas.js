@@ -23,7 +23,6 @@ function* asyncListCart() {
   } catch(error) {
     console.log(error);
     toast.error('Ocorreu um erro');
-
   }
 }
 
