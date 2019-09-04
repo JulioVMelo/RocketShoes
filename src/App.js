@@ -4,6 +4,7 @@ import Routes from './routes';
 import Header from './components/header';
 import { Provider } from 'react-redux';
 import store from './store';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <BrowserRouter>
         <Header />
         <Routes/>
+        <ToastContainer autoClose={3000} />
       </BrowserRouter>
     </Provider>
   );

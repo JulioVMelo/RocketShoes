@@ -1,5 +1,6 @@
 import { all, takeLatest, call, put, select } from 'redux-saga/effects';
 import api from '../services/api';
+import {toast} from 'react-toastify';
 
 function* asyncListProducts() {
   try {
@@ -8,18 +9,21 @@ function* asyncListProducts() {
 
   } catch(error){
     console.log(error);
+    toast.error('Ocorreu um erro');
   } 
 }
 
 function* asyncListCart() {
   try {
-    
+
       const response = yield select();
       const result = response.cart.map(cartItem => response.products.find(productItem => cartItem.id === productItem.id ));
       yield put({type: 'ASYNC_LIST_CART_SUCCESS', payload: result});
- 
+
   } catch(error) {
     console.log(error);
+    toast.error('Ocorreu um erro');
+
   }
 }
 
@@ -27,7 +31,9 @@ function* asyncAddCart({payload}) {
   try {
     console.log("id do produto clicado", payload.id);
     yield put({type: 'ASYNC_ADD_CART_SUCCESS', payload: payload.id})
+    toast.info('Item adicionado ao carrinho');
   } catch(error) {
+    toast.error('Ocorreu um erro');
     console.log(error)
   }
 }
