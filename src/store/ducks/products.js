@@ -12,20 +12,29 @@ export default function products(state = INITIAL_STATE, action) {
     case 'ASYNC_LIST_PRODUCTS_SUCCESS':
       state = action.payload;
       return state;
+    // case 'ASYNC_ADD_CART_SUCCESS':
+    //   console.log('PRODUTO', action.payload)
+      
+    //   return state;
+    case 'DECREMENT_STOCK':
+      // APENAS QUANDO FINALIZAR COMPRA
+      return state;
     default:
       return state;
   }
 }
 
 //   Actions
-export const Creators = {
-  listProducts: () => ({
+export function listProducts (){
+  return {
     type: "LIST_PRODUCTS",
     payload: {}
-  }),
+  } 
+};
 
-  asyncListProducts: () => ({
+export function asyncListProducts() {
+  return { 
     type: "ASYNC_LIST_PRODUCTS",
     payload: {}
-  }),
+  }
 };

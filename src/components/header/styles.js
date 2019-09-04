@@ -12,7 +12,8 @@ export const Cart = styled(Link)`
   display: flex;
   align-items: center;
   transition: opacity .2s; 
-  
+  position: relative;
+
   &:hover {
     opacity: .7;
   }

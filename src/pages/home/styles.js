@@ -52,7 +52,7 @@ export const ProductList = styled.ul`
       align-items: center;
       transition: background-color .2s;
       cursor: pointer;
-      
+      outline: 0;
       &:hover {
         background-color: ${darken(0.03, "#7159c1")}
       }

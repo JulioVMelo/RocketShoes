@@ -6,7 +6,7 @@ import { MdShoppingBasket } from 'react-icons/md';
 import { connect } from 'react-redux';
 
   const header = ({state}) => {
-    console.log('cart page', state);
+
   return (
     <Container>
       <Link to="/">
@@ -20,13 +20,12 @@ import { connect } from 'react-redux';
           </strong>
           <span> 
             {
-              state.length === 0 ? <span>Nenhum item adicionado</span> : <span>{state.length}</span>
+              state.length === 0 ? <span>Nenhum item adicionado</span> : <span>{state.length} item(s)</span>
             } 
           </span>
         </div>
         <MdShoppingBasket size={36} color="#fff"/>
       </Cart>
-      
     </Container>
   );
 }
