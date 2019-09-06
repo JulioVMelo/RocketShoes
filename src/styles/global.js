@@ -37,6 +37,10 @@ const GlobalStyle = createGlobalStyle`
     font-family: sans-serif;
   }
 
+  .Toastify__toast--success {
+    background: #7159c1!important;
+  }
+  
 `;
 
 export default GlobalStyle;

@@ -9,7 +9,6 @@ import { ProductList } from './styles';
 
 class Home extends Component{
   componentDidMount() {
-    console.log(this.props);
     this.props.ProductActions.asyncListProducts();
   };
 

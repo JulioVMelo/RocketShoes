@@ -24,7 +24,9 @@ import { connect } from 'react-redux';
             } 
           </span>
         </div>
+        
         <MdShoppingBasket size={36} color="#fff"/>
+        
       </Cart>
     </Container>
   );

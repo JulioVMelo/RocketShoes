@@ -10,14 +10,16 @@ import {
 } from "react-icons/md";
 
 class Cart extends Component {
+
   componentDidMount() {
     this.props.CartActions.listCart();
   }
 
   render() {
+    const result = this.props.state.cart.map(cartItem => this.props.state.products.find(productItem => cartItem.id === productItem.id ));
     return (
       <Container>
-        {this.props.state.cart.length <= 0 ? (
+        {result.length <= 0 ? (
           <h3>Nenhum item adicionado ao carrinho</h3>
         ) : (
           <ProductTable>
@@ -31,7 +33,8 @@ class Cart extends Component {
               </tr>
             </thead>
             <tbody>
-              {this.props.state.cart.map(item => (
+              {
+                result.map((item,index) => (
                 <tr key={item.id}>
                   <td>
                     <img src={item.image} alt={item.name} />
@@ -45,7 +48,7 @@ class Cart extends Component {
                       <button type="button">
                         <MdRemoveCircleOutline size={20} color="#7159c1" />
                       </button>
-                      <input type="text" readOnly value="2" />
+                      <input type="text" readOnly value={this.props.state.cart[index].amount}/>
                       <button type="button">
                         <MdAddCircleOutline size={20} color="#7159c1" />
                       </button>
@@ -65,7 +68,7 @@ class Cart extends Component {
           </ProductTable>
         )}
 
-        {this.props.state.cart.length > 0 && (
+        {result.length > 0 && (
           <footer>
             <button type="button">Finalizar pedido</button>
             <Total>
