@@ -8,6 +8,12 @@ export default function cart(state = INITIAL_STATE, action) {
     case 'ASYNC_LIST_CART_SUCCESS':
       state = action.payload;
       return state;
+    case 'ASYNC_INCREMENT_AMOUNT_SUCCESS':
+      state.map(item => item.id === action.id ? item.amount = item.amount + 1 : item);
+      return state;
+    case 'ASYNC_DECREMENT_AMOUNT_SUCCESS':
+      state.map(item => item.id === action.id ? item.amount = item.amount - 1 : item);
+      return state;
     default:
       return state;
   }
@@ -25,5 +31,19 @@ export function listCart(){
   return {
     type: "ASYNC_ADD_CART",
     payload: {id}
+  }
+};
+
+export function incrementAmount(id) {
+  return {
+    type: "ASYNC_INCREMENT_AMOUNT",
+    payload: {id}  
+  }
+};
+
+export function decrementAmount(id) {
+  return {
+    type: "ASYNC_DECREMENT_AMOUNT",
+    payload: {id}  
   }
 };

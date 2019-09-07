@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as CartActions from "../../store/ducks/cart";
-import { Container, ProductTable, Total } from "./styles";
+import { Container, ProductTable, Total, Amount } from "./styles";
 import {
   MdAddCircleOutline,
   MdRemoveCircleOutline,
@@ -15,13 +15,21 @@ class Cart extends Component {
     this.props.CartActions.listCart();
   }
 
+  handleIncrementAmount(id) {
+    this.props.CartActions.incrementAmount(id);
+  }
+
+  handleDecrementAmount(id) {
+    this.props.CartActions.decrementAmount(id);
+  }
+
   render() {
     const result = this.props.state.cart.map(cartItem => this.props.state.products.find(productItem => cartItem.id === productItem.id ));
     return (
       <Container>
-        {result.length <= 0 ? (
+        {result.length <= 0 ? 
           <h3>Nenhum item adicionado ao carrinho</h3>
-        ) : (
+        : 
           <ProductTable>
             <thead>
               <tr>
@@ -44,15 +52,15 @@ class Cart extends Component {
                     <span>R$ {item.price}</span>
                   </td>
                   <td>
-                    <div>
-                      <button type="button">
+                    <Amount>
+                      <button type="button" onClick={()=> this.handleDecrementAmount(this.props.state.cart[index].id)}>
                         <MdRemoveCircleOutline size={20} color="#7159c1" />
                       </button>
                       <input type="text" readOnly value={this.props.state.cart[index].amount}/>
-                      <button type="button">
+                      <button type="button" onClick={()=> this.handleIncrementAmount(this.props.state.cart[index].id)}>
                         <MdAddCircleOutline size={20} color="#7159c1" />
                       </button>
-                    </div>
+                    </Amount>
                   </td>
                   <td>
                     <strong>R$ 258,80</strong>
@@ -66,9 +74,9 @@ class Cart extends Component {
               ))}
             </tbody>
           </ProductTable>
-        )}
+        }
 
-        {result.length > 0 && (
+        {result.length > 0 &&
           <footer>
             <button type="button">Finalizar pedido</button>
             <Total>
@@ -76,7 +84,7 @@ class Cart extends Component {
               <strong>R$ 1920,00</strong>
             </Total>
           </footer>
-        )}
+        }
       </Container>
     );
   }

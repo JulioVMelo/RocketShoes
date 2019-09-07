@@ -25,6 +25,26 @@ function* asyncListCart() {
   }
 }
 
+function* asyncIncrementAmount({payload}) {
+  console.log('async increment amount', payload.id);
+  try {
+    yield put({type: 'ASYNC_INCREMENT_AMOUNT_SUCCESS', id: payload.id })
+    yield asyncListProducts();
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+function* asyncDecrementAmount({payload}) {
+  console.log('async increment amount', payload.id);
+  try {
+    yield put({type: 'ASYNC_DECREMENT_AMOUNT_SUCCESS', id: payload.id })
+    yield asyncListProducts();
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 function* asyncAddCart({payload}) {
   try {
     yield put({type: 'ASYNC_ADD_CART_SUCCESS', id: payload.id, amount: 1})
@@ -40,5 +60,7 @@ export default function* root() {
     takeLatest('ASYNC_LIST_PRODUCTS', asyncListProducts),
     takeLatest('ASYNC_ADD_CART', asyncAddCart),
     takeLatest('ASYNC_LIST_CART', asyncListCart),
+    takeLatest('ASYNC_INCREMENT_AMOUNT', asyncIncrementAmount),
+    takeLatest('ASYNC_DECREMENT_AMOUNT', asyncDecrementAmount)
   ]);
 }

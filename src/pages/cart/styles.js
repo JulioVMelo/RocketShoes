@@ -58,26 +58,29 @@ export const ProductTable = styled.table`
     font-size: 18px;
     font-weight: 900;
   }
-
-  div {
-    display: flex;
-    align-items: center;
-
-    input {
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      color: #666;
-      padding: 6px;
-      width: 50px;
-      text-align: center;
-    }
-  }
-
+  
   button {
     background: none;
     border: 0;
     padding: 6px;
+    cursor: pointer;
   }
+`;
+
+export const Amount = styled.div`
+  display: flex;
+  align-items: center;
+
+  input {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    color: #666;
+    padding: 6px;
+    width: 50px;
+    text-align: center;
+  }
+
+  
 `;
 
 export const Total = styled.div`
