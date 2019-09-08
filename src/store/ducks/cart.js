@@ -14,6 +14,9 @@ export default function cart(state = INITIAL_STATE, action) {
     case 'ASYNC_DECREMENT_AMOUNT_SUCCESS':
       state.map(item => item.id === action.id ? item.amount = item.amount - 1 : item);
       return state;
+    case 'ASYNC_REMOVE_ITEM_TO_CART_SUCCESS':
+      state = state.filter(item => item.id != action.payload);
+      return state;
     default:
       return state;
   }
@@ -27,7 +30,7 @@ export function listCart(){
   }; 
 };
 
- export function addProductToCart(id){
+ export function addProductToCart(id) {
   return {
     type: "ASYNC_ADD_CART",
     payload: {id}
@@ -47,3 +50,10 @@ export function decrementAmount(id) {
     payload: {id}  
   }
 };
+
+export function removeItemToCart(id) {
+  return {
+    type: 'ASYNC_REMOVE_ITEM_TO_CART',
+    payload: {id}
+  }
+}

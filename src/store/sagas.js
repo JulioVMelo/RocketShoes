@@ -55,12 +55,22 @@ function* asyncAddCart({payload}) {
   }
 }
 
+function* asyncRemoveItemToCart({payload}) {
+  try {
+    yield put({type: 'ASYNC_REMOVE_ITEM_TO_CART_SUCCESS', payload: payload.id});
+    toast.success('Item removido do carrinho');
+  } catch(error) {
+    console.log(error);
+  }
+}
+
 export default function* root() {
   yield all([
     takeLatest('ASYNC_LIST_PRODUCTS', asyncListProducts),
     takeLatest('ASYNC_ADD_CART', asyncAddCart),
     takeLatest('ASYNC_LIST_CART', asyncListCart),
     takeLatest('ASYNC_INCREMENT_AMOUNT', asyncIncrementAmount),
-    takeLatest('ASYNC_DECREMENT_AMOUNT', asyncDecrementAmount)
+    takeLatest('ASYNC_DECREMENT_AMOUNT', asyncDecrementAmount),
+    takeLatest('ASYNC_REMOVE_ITEM_TO_CART', asyncRemoveItemToCart)
   ]);
 }

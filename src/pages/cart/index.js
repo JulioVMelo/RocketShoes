@@ -31,6 +31,10 @@ class Cart extends Component {
     }
   }
 
+  handleRemoveItem(id) {
+    this.props.CartActions.removeItemToCart(id);
+  }
+
   render() {
     const result = this.props.state.cart.map(cartItem => this.props.state.products.find(productItem => cartItem.id === productItem.id ));
     return (
@@ -73,7 +77,7 @@ class Cart extends Component {
                     <strong>{formatPrice(item.price * this.props.state.cart[index].amount)}</strong>
                   </td>
                   <td>
-                    <button type="button">
+                    <button type="button" onClick={() => this.handleRemoveItem(item.id)}>
                       <MdDelete size={20} color="#7159c1" />
                     </button>
                   </td>
