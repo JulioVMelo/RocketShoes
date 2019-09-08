@@ -9,6 +9,8 @@ import {
   MdDelete
 } from "react-icons/md";
 
+import {formatPrice} from '../../util/format';
+
 class Cart extends Component {
 
   componentDidMount() {
@@ -20,16 +22,21 @@ class Cart extends Component {
   }
 
   handleDecrementAmount(id) {
-    this.props.CartActions.decrementAmount(id);
+
+    let item = this.props.state.cart.filter(item => item.id === id);
+    let itemAmount = item[0].amount;
+
+    if(itemAmount > 1) {
+      this.props.CartActions.decrementAmount(id);
+    }
   }
 
   render() {
     const result = this.props.state.cart.map(cartItem => this.props.state.products.find(productItem => cartItem.id === productItem.id ));
     return (
       <Container>
-        {result.length <= 0 ? 
-          <h3>Nenhum item adicionado ao carrinho</h3>
-        : 
+        {result.length <= 0 ?
+          <h3>Nenhum item adicionado ao carrinho</h3> :
           <ProductTable>
             <thead>
               <tr>
@@ -54,7 +61,7 @@ class Cart extends Component {
                   <td>
                     <Amount>
                       <button type="button" onClick={()=> this.handleDecrementAmount(this.props.state.cart[index].id)}>
-                        <MdRemoveCircleOutline size={20} color="#7159c1" />
+                        <MdRemoveCircleOutline size={20} color={this.props.state.cart[index].amount > 1 ? '#7159c1': '#ccc'} />
                       </button>
                       <input type="text" readOnly value={this.props.state.cart[index].amount}/>
                       <button type="button" onClick={()=> this.handleIncrementAmount(this.props.state.cart[index].id)}>
@@ -63,7 +70,7 @@ class Cart extends Component {
                     </Amount>
                   </td>
                   <td>
-                    <strong>R$ 258,80</strong>
+                    <strong>{formatPrice(item.price * this.props.state.cart[index].amount)}</strong>
                   </td>
                   <td>
                     <button type="button">
@@ -81,7 +88,7 @@ class Cart extends Component {
             <button type="button">Finalizar pedido</button>
             <Total>
               <span>Total</span>
-              <strong>R$ 1920,00</strong>
+              <strong>R$ 1920,00 </strong>
             </Total>
           </footer>
         }
