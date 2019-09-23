@@ -74,7 +74,7 @@ class Cart extends Component {
                     </Amount>
                   </td>
                   <td>
-                    <strong>{formatPrice(item.price * this.props.state.cart[index].amount)}</strong>
+                    <strong>{formatPrice(this.props.state.cart[index].subTotal)}</strong>
                   </td>
                   <td>
                     <button type="button" onClick={() => this.handleRemoveItem(item.id)}>
@@ -89,10 +89,12 @@ class Cart extends Component {
 
         {result.length > 0 &&
           <footer>
-            <button type="button">Finalizar pedido</button>
+            <button type="button" onClick={() => this.props.CartActions.buy()}>Finalizar pedido</button>
             <Total>
               <span>Total</span>
-              <strong>R$ 1920,00 </strong>
+              <strong>{formatPrice(this.props.state.cart.reduce((acc, item) => (
+                acc + item.subTotal
+                ),0)) }</strong>
             </Total>
           </footer>
         }
@@ -102,7 +104,7 @@ class Cart extends Component {
 }
 
 const mapStateToProps = state => ({
-  state
+  state,
 });
 
 function mapDispatchToProps(dispatch) {
